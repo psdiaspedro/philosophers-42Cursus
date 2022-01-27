@@ -6,15 +6,14 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:45:15 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/25 21:24:29 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/01/27 18:53:06 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 /* EXTERNAL FUNCTIONS
-
-	memset
+	memset -> preenche a memoria com bytes
 	printf -> printa formatado
 	malloc -> aloca memoria
 	free -> libera memoria
@@ -31,12 +30,16 @@
 	pthread_mutex_unlock
 */
 
+
 int	main(int argc, char **argv)
 {
 	t_infos infos;
-	
-	validate(argc, argv);
-	init(infos, argc, argv)
+	t_philo *philos;
 
+	validate(argc, argv);
+	if(!init(&infos, argc, argv))
+		return (0);
+	init_philosophers(&infos, &philos);
+	start_diner(&infos, philos)
 	return (0);
 }

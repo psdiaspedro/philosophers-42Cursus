@@ -6,7 +6,7 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:12:58 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/25 21:22:46 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/01/27 12:15:51 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ft_isdigit(int c)
 
 long int	is_negative(const char *str)
 {
-	long int	i;
-	long int	sign;
+	int	i;
+	int	sign;
 
 	i = 0;
 	sign = 1;
@@ -35,11 +35,11 @@ long int	is_negative(const char *str)
 	return (sign);
 }
 
-long int	ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	long int	value;
-	long int	i;
-	long int	sign;
+	int	value;
+	int	i;
+	int	sign;
 
 	value = 0;
 	i = 0;
@@ -56,5 +56,3 @@ long int	ft_atoi(const char *str)
 	}
 	return (value * sign);
 }
-
-
