@@ -6,7 +6,7 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:45:15 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/27 19:01:06 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/01/27 19:01:30 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 	pthread_mutex_destroy -> destroi um mutex
 	pthread_mutex_lock -> lock o acesso de outras threads
 	pthread_mutex_unlock -> desloca o acesso de outras threads
+	teste
 */
 
 
