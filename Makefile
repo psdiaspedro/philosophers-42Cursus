@@ -4,12 +4,12 @@ FLAGS = -pthread -Wall -Wextra -Werror
 RM = rm -f
 
 SRC = main.c \
-		diner.c \
+		dinner.c \
 		init.c \
 		philosophers_utils.c \
 		time.c \
 		validate.c \
-		diner_utils.c
+		dinner_utils.c
 
 OBJECTS = $(SRC:.c=.o)
 

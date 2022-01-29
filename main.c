@@ -6,7 +6,7 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:45:15 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/28 20:33:27 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/01/29 15:20:30 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,18 @@
 */
 
 
+
 int	main(int argc, char **argv)
 {
-	t_philo *philos;
+	t_setup			setup;
+	t_philo 		*philos;
+	pthread_mutex_t *forks;
 
 	validate(argc, argv);
-	if(!init(philos->inf, argv))
+	if(!init(&setup, argv))
 		return (0);
-	init_philosophers(philos->inf, &philos);
-	start_diner(philos->inf, philos);
+	init_forks(&setup, &forks);
+	init_philosophers(&setup, &philos, &forks);
+	start_diner(philos);
 	return (0);
 }

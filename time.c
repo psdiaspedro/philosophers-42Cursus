@@ -6,7 +6,7 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 19:10:45 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/28 22:31:14 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/01/29 17:46:43 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	msleep(long int time_in_ms)
 	long int	start_time;
 
 	while ((timestamp() - start_time) < time_in_ms)
-		usleep(time_in_ms/10)
+		usleep(time_in_ms/10);
 }
 
 long int	timestamp(void)
