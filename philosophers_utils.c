@@ -6,9 +6,11 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:12:58 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/27 12:15:51 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/01/28 19:39:34 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "philosophers.h"
 
 int	ft_isdigit(int c)
 {

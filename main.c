@@ -6,7 +6,7 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:45:15 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/27 19:01:49 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/01/28 20:33:27 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,12 @@
 
 int	main(int argc, char **argv)
 {
-	t_infos infos;
 	t_philo *philos;
 
 	validate(argc, argv);
-	if(!init(&infos, argc, argv))
+	if(!init(philos->inf, argv))
 		return (0);
-	init_philosophers(&infos, &philos);
-	start_diner(&infos, philos)
+	init_philosophers(philos->inf, &philos);
+	start_diner(philos->inf, philos);
 	return (0);
 }
