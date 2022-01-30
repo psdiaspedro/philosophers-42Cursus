@@ -1,25 +1,31 @@
-NAME = philosophers
-CC = gcc
-FLAGS = -pthread -Wall -Wextra -Werror
-RM = rm -f
+NAME	=	philosophers
+CC		=	gcc
+FLAGS	=	-pthread -Wall -Wextra -Werror
+RM		=	rm -f
 
-SRC = main.c \
-		dinner.c \
-		init.c \
-		philosophers_utils.c \
-		time.c \
-		validate.c \
-		dinner_utils.c
+INCLUDE_DIR	=	include
+INCLUDE		=	$(INCLUDE_DIR)/philosophers.h
+
+SRC_FILES =	main.c \
+			dinner.c \
+			init.c \
+			philosophers_utils.c \
+			time.c \
+			validate.c \
+			dinner_utils.c \
+			exit.c
+
+SRC =	$(addprefix src/, $(SRC_FILES))
 
 OBJECTS = $(SRC:.c=.o)
 
+.c.o:
+		$(CC) $(FLAGS) -c $< -o $(<:.c=.o)
+
 all: $(NAME)
 
-$(NAME): $(OBJECTS)
-	ar -rcs $(NAME) $(OBJECTS)
-
-$(OBJECTS): $(SRC)
-	$(CC) $(FLAGS) -c $(SRC)
+$(NAME): $(OBJECTS) $(INCLUDE)
+		$(CC) $(FLAGS) $(OBJECTS) -o $(NAME)
 
 clean:
 	$(RM) $(OBJECTS)
