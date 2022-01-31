@@ -3,8 +3,7 @@ CC		=	gcc
 FLAGS	=	-pthread -Wall -Wextra -Werror
 RM		=	rm -f
 
-INCLUDE_DIR	=	include
-INCLUDE		=	$(INCLUDE_DIR)/philo.h
+INCLUDE		=	philo.h
 
 SRC_FILES =	main.c \
 			philo_utils.c \
@@ -26,7 +25,7 @@ OBJECTS = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJECTS) $(INCLUDE)
-		$(CC) $(FLAGS) $(OBJECTS) -c $(NAME)
+		$(CC) $(FLAGS) $(OBJECTS) -o $(NAME)
 
 clean:
 	$(RM) $(OBJECTS)

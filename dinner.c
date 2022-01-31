@@ -6,7 +6,7 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 18:50:57 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/31 16:51:02 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/01/31 17:14:31 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	*philos_routine(void *ptr)
 	t_philo *philo;
 
 	philo = (t_philo *)ptr;
-	if (philo->id % 2)
+	if (philo->id % 2 == 0)
 		msleep(5);
 	if (philo->setup->one_philo)
 		return (solo_dinner(philo));
