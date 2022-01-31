@@ -6,43 +6,23 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:45:15 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/29 15:20:30 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/01/31 16:47:27 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
-
-/* EXTERNAL FUNCTIONS
-	memset -> preenche a memoria com bytes
-	printf -> printa formatado
-	malloc -> aloca memoria
-	free -> libera memoria
-	write -> escreve no fd
-	usleep
-	gettimeofday
-
-	pthread_create -> cria uma thread
-	pthread_detach
-	pthread_join -> basicamente eh o wait para thread, espera acabar
-	pthread_mutex_init -> inicia um mutex
-	pthread_mutex_destroy -> destroi um mutex
-	pthread_mutex_lock -> lock o acesso de outras threads
-	pthread_mutex_unlock -> desloca o acesso de outras threads
-*/
-
-
+#include "philo.h"
 
 int	main(int argc, char **argv)
 {
 	t_setup			setup;
-	t_philo 		*philos;
 	pthread_mutex_t *forks;
+	t_philo			*philo;
 
+	philo = NULL;
+	forks = NULL;
 	validate(argc, argv);
-	if(!init(&setup, argv))
-		return (0);
-	init_forks(&setup, &forks);
-	init_philosophers(&setup, &philos, &forks);
-	start_diner(philos);
+	init(&setup, &philo, &forks, argv);
+	start_dinner(philo, setup.n_of_philos);
+	free_finish(philo, &setup, forks);
 	return (0);
 }

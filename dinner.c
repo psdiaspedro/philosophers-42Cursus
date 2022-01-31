@@ -6,86 +6,82 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 18:50:57 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/29 17:46:31 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/01/31 16:51:02 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
-void	sleep(t_philo *philo)
+void	*solo_dinner(t_philo *philo)
 {
-	print(philo, SLEEPING);
-	msleep(philo->setup->time_to_sleep);
+	pthread_mutex_lock(philo->right_fork);
+	print(philo, TAKEN_FORK);
+	pthread_mutex_unlock(philo->right_fork);
+	return (NULL);
 }
 
-void	eat(t_philo *philo)
+void	eating(t_philo *philo)
 {
-	pthread_mutex_lock(philo->left_fork);
 	pthread_mutex_lock(philo->right_fork);
+	pthread_mutex_lock(philo->left_fork);
+	if (philo_is_dead(philo))
+	{
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
+	}
 	print(philo, TAKEN_FORK);
 	print(philo, TAKEN_FORK);
 	print(philo, EATING);
-	last_meal(philo);
+	pthread_mutex_lock(philo->setup->last_meal_locker);
+	philo->last_meal = elapsed_time(philo->setup->first_meal);
+	pthread_mutex_unlock(philo->setup->last_meal_locker);
 	msleep(philo->setup->time_to_eat);
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
-	pthread_mutex_lock(philo->last_meal_locker);
+	pthread_mutex_lock(philo->setup->sum_meals_locker);
 	philo->meals++;
-	pthread_mutex_unlock(philo->last_meal_locker);
-}
-
-void	*monitor_routine(void *ptr)
-{
-	t_philo		*philo;
-	long int	now;
-	long int	last_meal;
-	int			i;
-
-	t_philo *philo = (t_philo *)ptr;
-	i = 0;
-	while (havent_eaten(philo))
-	{
-		i = 0;
-		while (i < philo->setup->n_of_philos)
-		{
-			now = elapsed_time(philo->setup->first_meal);
-			last_meal = philo[i]->last_meal;
-			if ((now - last_meal) > philo->setup->time_to_die)
-			{
-				print(philo, DIED);
-				//finaliza o philo (dar free, destroy mutex)
-				return (NULL);
-			}
-		}
-		msleep(1);
-	}
-	return (NULL);
+	pthread_mutex_unlock(philo->setup->sum_meals_locker);
+	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(philo->left_fork);
 }
 
 void	*philos_routine(void *ptr)
 {
-	t_philo	*philo;
+	t_philo *philo;
 
 	philo = (t_philo *)ptr;
-
-	//criar uma rotina caso seja apenas 1 philo
-	eat(philo);
-	sleep(philo);
+	if (philo->id % 2)
+		msleep(5);
+	if (philo->setup->one_philo)
+		return (solo_dinner(philo));
+	while (!philo_is_dead(philo))
+	{
+		eating(philo);
+		if (get_meal(philo) == philo->setup->must_eat)
+			return (NULL);
+		print(philo, SLEEPING);
+		msleep(philo->setup->time_to_sleep);
+		print(philo, THINKING);
+	}
 	return (NULL);
 }
 
-void	start_diner(t_philo *philos)
+void	start_dinner(t_philo *philo, int n_of_philos)
 {
-	pthread_t	monitor;
-	int			i;
+	pthread_t monitor;
+	int	i;
 
 	i = 0;
-	philos->setup->first_meal = timestamp();
-	while (i < philos->setup->n_of_philos)
-		pthread_create(&philos[i].thread, NULL, &philos_routine, &philos[i]); //falta proteger
-	pthread_create(&monitor, NULL, &monitor_routine, philos)//falta proteger
+	philo->setup->first_meal = timestamp();
+	while (i < n_of_philos)
+	{
+		pthread_create(&philo[i].thread, NULL, &philos_routine, &philo[i]);
+		i++;
+	}
+	pthread_create(&monitor, NULL, &monitor_routine, philo);
 	i = 0;
-	while (i < philos->setup->n_of_philos)
-		pthread_join(philos[i].thread, NULL); //falta proteger
-	pthread_join(monitor, NULL);//falta proteger
+	while (i < philo->setup->n_of_philos)
+	{
+		pthread_join(philo[i].thread, NULL);
+		i++;
+	}
+	pthread_join(monitor, NULL);
 }

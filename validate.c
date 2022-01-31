@@ -6,11 +6,11 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:24:47 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/27 12:17:19 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/01/31 16:24:35 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 void	check_arguments(int	argc, char **argv)
 {
@@ -27,8 +27,8 @@ void	check_arguments(int	argc, char **argv)
 			j = 0;
 			while (argv[i][j])
 			{
-				if (!ft_isdigit(argv[i][j]) || ft_atoi(argv[i]) == 0
-					|| ft_atoi(argv[i]) > MAX_INT)
+				if (!ft_isdigit(argv[i][j]) || ft_atol(argv[i]) == 0
+					|| ft_atol(argv[i]) > MAX_INT)
 				{
 					printf("syntax error\n");
 					exit(EXIT_FAILURE);
@@ -44,9 +44,10 @@ void	check_arguments(int	argc, char **argv)
 void	validate(int argc, char **argv)
 {
 	check_arguments(argc, argv);
-	if (argc > 6 || argc < 5)
+	if (argc < 5 || argc > 6)
 	{
 		printf("wrong syntax, please try again\n");
 		exit(EXIT_FAILURE);
 	}
 }
+

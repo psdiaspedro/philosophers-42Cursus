@@ -6,42 +6,56 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 22:05:27 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/29 17:46:34 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/01/31 16:23:45 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
-
-int	havent_eaten(t_philo *philo)
-{
-	int	i;
-	int	have_eaten;
-
-	i = 0;
-	have_eaten = 0;
-	while (i < philo->setup->n_of_philos)
-	{
-		if (philo[i].meals == philo[i].setup->must_eat)
-			have_eaten++;
-		i++;
-	}
-	if (have_eaten == philo->setup->n_of_philos)
-		return (0);
-	return (1);
-}
-
-void	last_meal(t_philo *philo)
-{
-	pthread_mutex_lock(philo->meal_locker);
-	philo->last_meal = elapsed_time(philo->setup->first_meal);
-	pthread_mutex_unlock(philo->meal_locker);
-}
+#include "philo.h"
 
 void	print(t_philo *philo, char *status)
 {
 	long int	time_now;
+
 	pthread_mutex_lock(philo->setup->print_locker);
 	time_now = elapsed_time(philo->setup->first_meal);
-	printf("%5ld %3d %s", time_now, philo->id, status);
+	if (!philo->setup->philo_died)
+		printf("%5ld %3d %s\n", time_now, philo->id, status);
 	pthread_mutex_unlock(philo->setup->print_locker);
+}
+
+void	philo_died(t_philo *philo)
+{
+	pthread_mutex_lock(philo->setup->died_locker);
+	philo->setup->philo_died = 1;
+	pthread_mutex_unlock(philo->setup->died_locker);
+
+}
+
+int	get_meal(t_philo *philo)
+{
+	int	meals;
+
+	pthread_mutex_lock(philo->setup->get_meals_locker);
+	meals = philo->meals;
+	pthread_mutex_unlock(philo->setup->get_meals_locker);
+	return (meals);
+}
+
+int	philo_is_dead(t_philo *philo)
+{
+	int	dinner_is_over;
+
+	pthread_mutex_lock(philo->setup->is_philo_died_locker);
+	dinner_is_over = 0;
+	if (philo->setup->philo_died)
+		dinner_is_over = philo->setup->philo_died;
+	pthread_mutex_unlock(philo->setup->is_philo_died_locker);
+	return (dinner_is_over);
+}
+
+void	finish_dinner(t_philo *philo)
+{
+	pthread_mutex_lock(philo->setup->died_locker);
+	philo->setup->philo_died = 1;
+	pthread_mutex_unlock(philo->setup->died_locker);
 }
