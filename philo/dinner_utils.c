@@ -6,7 +6,7 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 22:05:27 by paugusto          #+#    #+#             */
-/*   Updated: 2022/02/01 11:01:34 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/02/01 11:15:57 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print(t_philo *philo, char *status)
 {
-	long int	time_now;
+	long	time_now;
 
 	pthread_mutex_lock(philo->setup->print_locker);
 	time_now = elapsed_time(philo->setup->first_meal);
