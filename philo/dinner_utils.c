@@ -6,7 +6,7 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 22:05:27 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/31 16:23:45 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/02/01 11:01:34 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	philo_died(t_philo *philo)
 	pthread_mutex_lock(philo->setup->died_locker);
 	philo->setup->philo_died = 1;
 	pthread_mutex_unlock(philo->setup->died_locker);
-
 }
 
 int	get_meal(t_philo *philo)

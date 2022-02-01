@@ -6,7 +6,7 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:45:15 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/31 16:47:27 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/02/01 11:01:20 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char **argv)
 {
 	t_setup			setup;
-	pthread_mutex_t *forks;
+	pthread_mutex_t	*forks;
 	t_philo			*philo;
 
 	philo = NULL;

@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/01 11:04:12 by paugusto          #+#    #+#             */
+/*   Updated: 2022/02/01 11:05:18 by paugusto         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <sys/time.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <sys/time.h>
 
 # define MAX_INT 	2147483647
 # define TAKEN_FORK	"has taken a fork"
@@ -14,7 +26,7 @@
 # define THINKING	"is thinking"
 # define DIED		"died"
 
-typedef	struct s_setup
+typedef struct s_setup
 {
 	int				n_of_philos;
 	int				time_to_die;
@@ -25,12 +37,12 @@ typedef	struct s_setup
 	int				philo_died;
 	long			first_meal;
 	pthread_mutex_t	*print_locker;
-	pthread_mutex_t *get_last_meal_locker;
-	pthread_mutex_t *died_locker;
-	pthread_mutex_t *sum_meals_locker;
-	pthread_mutex_t *get_meals_locker;
-	pthread_mutex_t *is_philo_died_locker;
-	pthread_mutex_t *last_meal_locker;
+	pthread_mutex_t	*get_last_meal_locker;
+	pthread_mutex_t	*died_locker;
+	pthread_mutex_t	*sum_meals_locker;
+	pthread_mutex_t	*get_meals_locker;
+	pthread_mutex_t	*is_philo_died_locker;
+	pthread_mutex_t	*last_meal_locker;
 }	t_setup;
 
 typedef struct s_philo
@@ -46,7 +58,7 @@ typedef struct s_philo
 
 void	*monitor_routine(void *ptr);
 void	validate(int argc, char **argv);
-void 	init(t_setup *set, t_philo **phi, pthread_mutex_t **forks, char **argv);
+void	init(t_setup *set, t_philo **phi, pthread_mutex_t **forks, char **argv);
 void	msleep(int time_in_ms);
 void	print(t_philo *philo, char *status);
 void	start_dinner(t_philo *philo, int n_of_philos);

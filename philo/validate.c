@@ -6,15 +6,15 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:24:47 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/31 16:24:35 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/02/01 11:02:16 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	check_arguments(int	argc, char **argv)
+void	check_arguments(int argc, char **argv)
 {
-	int count;
+	int	count;
 	int	i;
 	int	j;
 
@@ -50,4 +50,3 @@ void	validate(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 }
-

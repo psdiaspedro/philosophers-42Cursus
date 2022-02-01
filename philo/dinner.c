@@ -6,7 +6,7 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 18:50:57 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/31 19:31:39 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/02/01 11:01:11 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	eating(t_philo *philo)
 
 void	*philos_routine(void *ptr)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)ptr;
 	if (philo->id % 2 == 0)
@@ -66,8 +66,8 @@ void	*philos_routine(void *ptr)
 
 void	start_dinner(t_philo *philo, int n_of_philos)
 {
-	pthread_t monitor;
-	int	i;
+	pthread_t	monitor;
+	int			i;
 
 	i = 0;
 	philo->setup->first_meal = timestamp();

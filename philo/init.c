@@ -6,7 +6,7 @@
 /*   By: paugusto <paugusto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:43:48 by paugusto          #+#    #+#             */
-/*   Updated: 2022/01/31 16:44:04 by paugusto         ###   ########.fr       */
+/*   Updated: 2022/02/01 11:00:39 by paugusto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,10 @@ void	init_philos(t_philo **philo, t_setup *setup, pthread_mutex_t **forks)
 	(*philo)[i].left_fork = &(*forks)[0];
 }
 
-void init(t_setup *set, t_philo **phi, pthread_mutex_t **forks,char **argv)
+void	init(t_setup *set, t_philo **phi, pthread_mutex_t **forks, char **argv)
 {
 	init_setup(set, argv);
 	init_mutex(set);
 	init_forks(set, forks, set->n_of_philos);
 	init_philos(phi, set, forks);
-	
 }
